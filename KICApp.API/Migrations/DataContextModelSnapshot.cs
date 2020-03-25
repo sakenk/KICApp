@@ -14,18 +14,22 @@ namespace KICApp.API.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079");
+                .HasAnnotation("ProductVersion", "3.0.0");
 
             modelBuilder.Entity("KICApp.API.Models.User", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
 
-                    b.Property<byte[]>("PassswordHash");
+                    b.Property<byte[]>("PasswordHash")
+                        .HasColumnType("BLOB");
 
-                    b.Property<byte[]>("PasswordSalt");
+                    b.Property<byte[]>("PasswordSalt")
+                        .HasColumnType("BLOB");
 
-                    b.Property<string>("Username");
+                    b.Property<string>("Username")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -35,9 +39,11 @@ namespace KICApp.API.Migrations
             modelBuilder.Entity("KICApp.API.Models.Value", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
