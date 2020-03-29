@@ -6,6 +6,5 @@ namespace KICApp.API.Dtos
 
         public string Password { get; set; }
 
-        
     }
 }

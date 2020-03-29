@@ -11,11 +11,12 @@ namespace KICApp.API.Data
 
         public AuthRepository(DataContext context)
         {
-            this._context = context;    
+            _context = context;    
         }
 
         public async Task<User> Login(string username, string password)
         {
+            // firstordefault returns null or user
             var user = await _context.Users.FirstOrDefaultAsync(x => x.Username == username);
 
             if(user == null) {
@@ -46,6 +47,7 @@ namespace KICApp.API.Data
         public async Task<User> Register(User user, string password)
         {
             byte[] passwordHash, passwordSalt;
+            // passing a reference 
             CreatePasswordHash(password, out passwordHash, out passwordSalt);
 
             user.PasswordHash = passwordHash;

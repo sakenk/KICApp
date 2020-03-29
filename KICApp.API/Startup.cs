@@ -36,9 +36,10 @@ namespace KICApp.API
             services.AddDbContext<DataContext>(x => x.UseSqlite(
                 Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllers();
+            // dotnet 2.2 implementation commented
             // services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             // services.AddCors();
-            // services.AddScoped<IAuthRepository, AuthRepository>();            
+            services.AddScoped<IAuthRepository, AuthRepository>();            
             // services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             //     .AddJwtBearer(options => {
             //         options.TokenValidationParameters = new TokenValidationParameters {
@@ -67,9 +68,14 @@ namespace KICApp.API
             // }
 
             app.UseRouting();
+
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
             app.UseAuthorization();
+            
             app.UseEndpoints(endpoints => {
                 endpoints.MapControllers();
+                endpoints.MapFallbackToController("Index", "Fallback");
             });
             // app.UseHttpsRedirection();
             // app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
